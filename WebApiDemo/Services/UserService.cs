@@ -68,7 +68,7 @@ namespace WebApiDemo.Services
             }
         }
 
-        /// <summary>
+        /// <summary>s
         /// Createing user
         /// </summary>
         /// <param name="userInput">Inserting user values as a object</param>
