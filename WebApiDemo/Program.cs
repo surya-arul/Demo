@@ -54,6 +54,7 @@ namespace WebApiDemo
 
             var app = builder.Build();
 
+            // Using Custom Middleware
             app.UseCustomMiddleware();
 
             // Configure the HTTP request pipeline.
