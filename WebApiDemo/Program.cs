@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApiDemo.Middleware;
 using WebApiDemo.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 
 namespace WebApiDemo
 {
@@ -37,6 +40,7 @@ namespace WebApiDemo
                 };
             });
             builder.Services.AddAuthorization();
+
             // Add configuration from appsettings.json
             builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
@@ -46,9 +50,11 @@ namespace WebApiDemo
             builder.Services.AddSwaggerGen();
 
             // Add service for crud process
-            builder.Services.AddTransient<UserService, UserService>();
+            builder.Services.AddTransient<IUserService, UserService>();
 
             var app = builder.Build();
+
+            app.UseCustomMiddleware();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -58,6 +64,8 @@ namespace WebApiDemo
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
