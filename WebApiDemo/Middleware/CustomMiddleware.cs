@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace WebApiDemo.Middleware
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class CustomMiddleware
     {
         private readonly RequestDelegate _next;
@@ -23,7 +22,6 @@ namespace WebApiDemo.Middleware
             var method = request.Method;
             var path = request.Path;
 
-            // Write the collected log information to the response body
             httpContext.Response.Headers.Add("Custom-Header", $"Method - {method} | Path - {path}");
 
             await _next(httpContext);
